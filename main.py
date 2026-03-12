@@ -14,12 +14,14 @@ def main(page: ft.Page):
     
     correo = ft.TextField(
         label="Correo electrónico",
+        prefix_icon=ft.Icons.PERSON,
         width=400,
     )
     
 
     contraseña= ft.TextField(
             label="Contraseña",
+            prefix_icon=ft.Icons.KEY,
             password=True,
             can_reveal_password=True,
         )
