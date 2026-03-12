@@ -3,11 +3,13 @@ import flet as ft
 def main(page: ft.Page):
     page.title = "Login"
     page.padding = 20
-    page.scroll = "adaptive"
-    
+    page.scroll = "adaptive"    
+
+    usuario_valido = "admin@gmail.com"
+    password_valido = "1234"
 
     titulo = ft.Text(
-        "Inicio de sesion",
+        "Inicio de sesión",
         size=30,
         weight=ft.FontWeight.BOLD,
     )
@@ -17,18 +19,31 @@ def main(page: ft.Page):
         prefix_icon=ft.Icons.PERSON,
         width=400,
     )
-    
 
-    contraseña= ft.TextField(
-            label="Contraseña",
-            prefix_icon=ft.Icons.KEY,
-            password=True,
-            can_reveal_password=True,
-        )
-    
+    contraseña = ft.TextField(
+        label="Contraseña",
+        prefix_icon=ft.Icons.KEY,
+        password=True,
+        can_reveal_password=True,
+        width=400
+    )
+
+    mensaje = ft.Text("", color="red")
+
+    def login(e):
+        if correo.value == usuario_valido and contraseña.value == password_valido:
+            mensaje.value = "Inicio de sesión exitoso"
+            mensaje.color = "green"
+        else:
+            mensaje.value = "Correo o contraseña incorrectos"
+            mensaje.color = "red"
+
+        page.update()
+
     iniciar_sesion = ft.ElevatedButton(
-        "Iniciar sesion",
+        "Iniciar sesión",
         width=250,
+        on_click=login,
         style=ft.ButtonStyle(
             bgcolor=ft.Colors.GREEN_400,
             color=ft.Colors.WHITE,
@@ -47,8 +62,11 @@ def main(page: ft.Page):
             shape=ft.RoundedRectangleBorder(radius=12),
         ),
     )
-
     
+    link_forgot= ft.Button(
+        "¿Olvidaste tu contraseña?"
+    )
+
     page.add(
         ft.Column([
             titulo,
@@ -57,7 +75,9 @@ def main(page: ft.Page):
             ft.Container(height=10),
             contraseña,
             ft.Container(height=10),
-            ft.Container(height=20),
+            mensaje,
+            ft.Container(height=10),
+            link_forgot,
             ft.Row([iniciar_sesion, registro], alignment=ft.MainAxisAlignment.CENTER)
         ],
         spacing=15,
